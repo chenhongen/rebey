@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>Json的转换与传递 | CHE Studio</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="json," />
+  
+
+  <meta name="description" content="概要
+  项目中常用的json形式数据在前后台实现string与object对象等各种互转相关知识点整理。
+
+前端：Form Data–&amp;gt;Json Object–&amp;gt;Json String:
+
+
+12345☞ jsp片段：&amp;lt;form action=&quot;&quot; id=&quot;jsonForm&quot;&amp;gt;    cd：&amp;lt;input type=&quot;text&quot; id=&quot;&quot; name=&quot;goodsC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Json的转换与传递">
+<meta property="og:url" content="http://yoursite.com/2016/04/16/Json的转换与传递/index.html">
+<meta property="og:site_name" content="CHE Studio">
+<meta property="og:description" content="概要
+  项目中常用的json形式数据在前后台实现string与object对象等各种互转相关知识点整理。
+
+前端：Form Data–&amp;gt;Json Object–&amp;gt;Json String:
+
+
+12345☞ jsp片段：&amp;lt;form action=&quot;&quot; id=&quot;jsonForm&quot;&amp;gt;    cd：&amp;lt;input type=&quot;text&quot; id=&quot;&quot; name=&quot;goodsC">
+<meta property="og:updated_time" content="2016-07-31T09:08:40.557Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Json的转换与传递">
+<meta name="twitter:description" content="概要
+  项目中常用的json形式数据在前后台实现string与object对象等各种互转相关知识点整理。
+
+前端：Form Data–&amp;gt;Json Object–&amp;gt;Json String:
+
+
+12345☞ jsp片段：&amp;lt;form action=&quot;&quot; id=&quot;jsonForm&quot;&amp;gt;    cd：&amp;lt;input type=&quot;text&quot; id=&quot;&quot; name=&quot;goodsC">
+
+  
+
+  
+    <link rel="icon" href="/images/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=028c63b1" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//pingjs.qq.com/h5/stats.js";
+      hm.name = "MTAH5";
+      hm.SID = "500052254";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">More</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">More</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-Json的转换与传递" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">Json的转换与传递</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2016.04.16</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Chen hongen</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/总结/">总结</a>
+  </span>
+
+
+
+      
+
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <ul>
+<li><p><strong>概要</strong></p>
+<p>  项目中常用的json形式数据在前后台实现string与object对象等各种互转相关知识点整理。</p>
+</li>
+<li><p><strong>前端：Form Data–&gt;Json Object–&gt;Json String:</strong></p>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">☞ jsp片段：</div><div class="line">&lt;form action=<span class="string">""</span> id=<span class="string">"jsonForm"</span>&gt;</div><div class="line">    <span class="built_in">cd</span>：&lt;input <span class="built_in">type</span>=<span class="string">"text"</span> id=<span class="string">""</span> name=<span class="string">"goodsCd"</span> value=<span class="string">"20150904"</span> /&gt;&lt;br/&gt;</div><div class="line">    name：&lt;input <span class="built_in">type</span>=<span class="string">"text"</span> id=<span class="string">""</span> name=<span class="string">"goodsName"</span> value=<span class="string">"che"</span>/&gt;</div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">☞ js片段：</div><div class="line">//具有name、value属性，序列化成一个Object对象</div><div class="line">$.fn.serializeObject = <span class="function"><span class="title">function</span></span>() &#123;</div><div class="line">   var obj = &#123;&#125;;</div><div class="line">   var arr = this.serializeArray();</div><div class="line">   $.each(arr, <span class="function"><span class="title">function</span></span>() &#123;</div><div class="line">       <span class="keyword">if</span> (obj[this.name]) &#123;</div><div class="line">           <span class="keyword">if</span> (!obj[this.name].push) &#123;</div><div class="line">               obj[this.name] = [ obj[this.name] ];</div><div class="line">           &#125;</div><div class="line">           obj[this.name].push(this.value || <span class="string">''</span>);</div><div class="line">       &#125; <span class="keyword">else</span> &#123;</div><div class="line">           obj[this.name] = this.value || <span class="string">''</span>;</div><div class="line">       &#125;</div><div class="line">   &#125;);</div><div class="line">   <span class="built_in">return</span> obj;</div><div class="line">&#125;;</div><div class="line">var jsonForm = $(<span class="string">"#jsonForm"</span>);</div><div class="line">// json对象转json字符串</div><div class="line">var jsonStr = JSON.stringify(jsonForm.serializeObject());</div><div class="line">alert(jsonStr);</div></pre></td></tr></table></figure>
+<ul>
+<li><strong>前端：Json String–&gt;Json Object：</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">☞ js片段：</div><div class="line">jQuery.parseJSON(jsonStr));</div></pre></td></tr></table></figure>
+<ul>
+<li><strong>前后端：Json Object–&gt;JavaBean：</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">☞ js片段：</div><div class="line">// rb须与后台实体变量名称同名</div><div class="line"><span class="keyword">function</span> <span class="function"><span class="title">getRbJson</span></span>()&#123;</div><div class="line">    var rbJson = &#123;&#125;;</div><div class="line">    </div><div class="line">    rbJson[<span class="string">"rb.goodsType"</span>] = <span class="string">"a"</span>;</div><div class="line">    rbJson[<span class="string">"rb.goodsCd"</span>] = <span class="string">"b"</span>;</div><div class="line">    </div><div class="line">    <span class="built_in">return</span> rbJson;</div><div class="line">&#125;</div><div class="line">$(<span class="function"><span class="title">function</span></span>()&#123;</div><div class="line">    $.ajax(&#123;</div><div class="line">        url: <span class="string">"setJsonObject.action"</span>,</div><div class="line">	<span class="built_in">type</span>: <span class="string">'POST'</span>,</div><div class="line">	cache: <span class="literal">false</span>,</div><div class="line">	async:<span class="literal">false</span>,</div><div class="line">	data: getRbJson(),</div><div class="line">            success: <span class="keyword">function</span> (text) &#123;</div><div class="line">	&#125;,</div><div class="line">	error: <span class="keyword">function</span> (jqXHR, textStatus, errorThrown) &#123;</div><div class="line">	    alert(jqXHR.responseText);</div><div class="line">	&#125;</div><div class="line">    &#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">☞ java片段：</div><div class="line">private RbGoods rb;</div><div class="line">    public RbGoods <span class="function"><span class="title">getRb</span></span>() &#123;</div><div class="line">    <span class="built_in">return</span> rb;</div><div class="line">&#125;</div><div class="line">public void <span class="built_in">set</span>Rb(RbGoods rb) &#123;</div><div class="line">    this.rb = rb;</div><div class="line">&#125;</div><div class="line">public String <span class="function"><span class="title">setJsonObject</span></span>() &#123;</div><div class="line">    System.out.println(rb.getGoodsCd());</div><div class="line">    <span class="built_in">return</span> SUCCESS;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><strong>前后端：Json String–&gt;JavaBean：</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">☞ js片段：</div><div class="line">var rbStr = &#123;&#125;;</div><div class="line">var rbArray = [];</div><div class="line">rbArray.push(&#123;goodsCd:<span class="string">'1'</span>,goodsName:<span class="string">'che'</span>&#125;);</div><div class="line">rbArray.push(&#123;goodsCd:<span class="string">'2'</span>,goodsName:<span class="string">'chen'</span>&#125;);</div><div class="line">rbStr[<span class="string">"jsonArrayStr"</span>] = rbArray;</div><div class="line">$.ajax(&#123;</div><div class="line">       url: <span class="string">"jsonStrToObject.action"</span>,</div><div class="line">      <span class="built_in">type</span>: <span class="string">'POST'</span>,</div><div class="line">     cache: <span class="literal">false</span>,</div><div class="line">       async:<span class="literal">false</span>,</div><div class="line">       data: &#123;jsonStr:JSON.stringify(rbArray)&#125;,</div><div class="line">    success: <span class="keyword">function</span> (text) &#123;&#125;,</div><div class="line">   error: <span class="keyword">function</span> (jqXHR, textStatus, errorThrown) &#123;</div><div class="line">           alert(jqXHR.responseText);</div><div class="line">       &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">☞ java片段：</div><div class="line">private String jsonStr;</div><div class="line"></div><div class="line">public String <span class="function"><span class="title">getJsonStr</span></span>() &#123;</div><div class="line">    <span class="built_in">return</span> jsonStr;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public void <span class="built_in">set</span>JsonStr(String jsonStr) &#123;</div><div class="line">    this.jsonStr = jsonStr;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public String <span class="function"><span class="title">jsonStrToObject</span></span>() &#123;</div><div class="line">    // String转JSON</div><div class="line">    JSONArray jsonArray = JSONArray.fromObject(jsonStr);</div><div class="line">    </div><div class="line">    <span class="keyword">for</span>(int i = 0; i &lt; jsonArray.size(); i++) &#123;</div><div class="line">        // JSON转object对象</div><div class="line">        String JOStr = jsonArray.getString(i);</div><div class="line">        JSONObject JO = JSONObject.fromObject(JOStr);</div><div class="line">        RbGoods goods =(RbGoods)JSONObject.toBean(JO, RbGoods.class);</div><div class="line">        System.out.println(goods.getGoodsCd());</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="built_in">return</span> SUCCESS;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">function</span> newchePoint(obj) &#123;</div><div class="line">    <span class="built_in">return</span> <span class="string">"&lt;che id=\""</span>+obj.id+</div><div class="line">    <span class="string">"\" type=\""</span>+obj.type+<span class="string">"\" value=\"\"/&gt;\r\n"</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><strong>更新ing…</strong></li>
+</ul>
+
+    
+  </div>
+</article>
+
+</div>
+
+
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">打赏</span>
+      <div class="donation-body">
+        <div class="tip text-center">手机扫一扫，支持CHE~</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/qr-wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/qr-alipay.jpg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="" data-title="Json的转换与传递" data-url="http://yoursite.com/2016/04/16/Json的转换与传递/index.html"></div>
+    <!-- 多说评论框 end -->
+  </section>
+
+
+
+
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"rebey"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+
+
+  </div>
+
+  
+
+  
+<script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+    loadScript('/js/particles.min.js', function() {
+       if(document.getElementById("particles-js") != null) {
+       particlesJS('particles-js',
+	  {
+	    "particles": {
+	      "number": {
+		"value": 80,
+		"density": {
+		  "enable": true,
+		  "value_area": 800
+		}
+	      },
+	      "color": {
+		"value": "#ffffff"
+	      },
+	      "shape": {
+		"type": "circle",
+		"stroke": {
+		  "width": 0,
+		  "color": "#000000"
+		},
+		"polygon": {
+		  "nb_sides": 5
+		},
+		"image": {
+		  "src": "img/github.svg",
+		  "width": 100,
+		  "height": 100
+		}
+	      },
+	      "opacity": {
+		"value": 0.5,
+		"random": false,
+		"anim": {
+		  "enable": false,
+		  "speed": 1,
+		  "opacity_min": 0.1,
+		  "sync": false
+		}
+	      },
+	      "size": {
+		"value": 5,
+		"random": true,
+		"anim": {
+		  "enable": false,
+		  "speed": 40,
+		  "size_min": 0.1,
+		  "sync": false
+		}
+	      },
+	      "line_linked": {
+		"enable": true,
+		"distance": 150,
+		"color": "#ffffff",
+		"opacity": 0.4,
+		"width": 1
+	      },
+	      "move": {
+		"enable": true,
+		"speed": 6,
+		"direction": "none",
+		"random": false,
+		"straight": false,
+		"out_mode": "out",
+		"attract": {
+		  "enable": false,
+		  "rotateX": 600,
+		  "rotateY": 1200
+		}
+	      }
+	    },
+	    "interactivity": {
+	      "detect_on": "canvas",
+	      "events": {
+		"onhover": {
+		  "enable": true,
+		  "mode": "repulse"
+		},
+		"onclick": {
+		  "enable": true,
+		  "mode": "push"
+		},
+		"resize": true
+	      },
+	      "modes": {
+		"grab": {
+		  "distance": 400,
+		  "line_linked": {
+		    "opacity": 1
+		  }
+		},
+		"bubble": {
+		  "distance": 400,
+		  "size": 40,
+		  "duration": 2,
+		  "opacity": 8,
+		  "speed": 3
+		},
+		"repulse": {
+		  "distance": 200
+		},
+		"push": {
+		  "particles_nb": 4
+		},
+		"remove": {
+		  "particles_nb": 2
+		}
+	      }
+	    },
+	    "retina_detect": true,
+	    "config_demo": {
+	      "hide_card": false,
+	      "background_color": "#b61924",
+	      "background_image": "",
+	      "background_position": "50% 50%",
+	      "background_repeat": "no-repeat",
+	      "background_size": "cover"
+	    }
+	  }
+
+	);
+	}
+    });
+
+  }
+</script>
+
+</body>
+</html>

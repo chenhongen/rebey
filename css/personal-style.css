@@ -1,0 +1,34 @@
+.content-home {
+    margin: -150px 25% 100px 25%;
+    width: 50%;
+	background-color: rgba(255,255,255,0.4);
+	padding-top: 20px;
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#26FFFFFF, endColorstr=#26FFFFFF);
+	border-radius: 5px; /* ���нǶ�ʹ�ð뾶Ϊ5px��Բ�ǣ�������ΪCSS3��׼���� */ 
+	-moz-border-radius: 5px; /* Mozilla��������˽������ */ 
+	-webkit-border-radius: 5px; /* Webkit��������˽������ */ 
+}
+
+canvas{
+  display:block;
+  vertical-align:bottom;
+}
+
+#particles-js{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  background-image: url('http://www.dujin.org/sys/bing/1920.php');
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+}
+
+html.page-home {
+
+}
